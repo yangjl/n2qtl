@@ -2,8 +2,18 @@
 ### Feb 23th, 2017
 ### data checking
 
-install.packages()
+
+## Install some required packages if have not installed
+
+#install.packages("lme4")
+#install.packages(devtools)
+#devtools::install_github("jyanglab/g3tools")
+
 library("lme4")
+library("g3tools")
+
+
+
 
 pheno <- read.csv("data/1_QTL_AllFamilies_NoOutlier.csv")
 dim(pheno)
@@ -14,20 +24,18 @@ n2 <- subset(pheno, !is.na(X15NT1))
 hist(n2$X15NT1, breaks=30)
 hist(n2$X15NT1R, breaks=30)
 
-#install.packages(devtools)
-devtools::install_github("jyanglab/g3tools")
-library(g3tools)
 
-get_BLUP()
-
-
-fit <- get_BLUP(data = pheno, model = X15NT1 ~ (1 | Line) + (1 | Rep) + (1 | Longitude) 
-         + (1 | Latitude), which.factor = "Line",
-         outfile = "data/blup.csv")
-
-get_H2(fit, numerator="Line",
-       denominator=data.frame(f=c("Line", "Residual"),
+fit <- get_BLUP(data = pheno, model = X15NT1 ~ (1 | Genotype) + (1 | Rep) + (1 | Longitude) 
+         + (1 | Latitude), which.factor = "Genotype",
+         outfile = "data/blup_15NT1.csv")
+get_H2(fit, numerator="Genotype", denominator=data.frame(f=c("Genotype", "Residual"),
                               df=c(1, 1)))
+
+
+
+
+
+
 
 fit2 <- get_BLUP(data = pheno, model = X15NT2 ~ (1 | Line) + (1 | Rep) + (1 | Longitude) 
                 + (1 | Latitude), which.factor = "Line",
