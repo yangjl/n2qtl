@@ -6,8 +6,8 @@ mlm <- fread("largedata/mlm_filter70.txt", data.table=FALSE)
 
 ts <- unique(mlm$Trait)
 
-
-CF = 0.05
+### false discovery rate cutoff
+CF = 0.05 # 0.1
 
 out <- list()
 idx_cf <- c()
@@ -40,6 +40,7 @@ source("lib/newpos.R")
 # location: 129.186.85.7
 
 pdf("graphs/mht_plots_fdr0.05.pdf", width=10, height=4)
+
 for(j in 1:length(out)){
   t <- names(out)[j]
   
