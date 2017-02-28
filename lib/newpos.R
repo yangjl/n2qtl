@@ -10,7 +10,7 @@ newpos <- function (dataframe, GAP = 5e+06, version = "v3")
       cl <- read.csv("~/Documents/Github/zmSNPtools/Rcodes/chr_length_B73v2.csv")
   }
   if(version == "v3"){
-      cl <- read.csv("~/Documents/Github/zmSNPtools/Rcodes/chr_length_B73v3.csv")
+      cl <- read.csv("lib/chr_length_B73v3.csv")
   }
   
   cl$accumpos <- cl$BP
@@ -29,7 +29,7 @@ chrline_tick <- function(GAP=5e+06, version = "v3"){
       cl <- read.csv("~/Documents/Github/zmSNPtools/Rcodes/chr_length_B73v2.csv")
   }
   if(version == "v3"){
-      cl <- read.csv("~/Documents/Github/zmSNPtools/Rcodes/chr_length_B73v3.csv")
+      cl <- read.csv("lib/chr_length_B73v3.csv")
   }
   
   names(cl) <- c("chr", "snp", "pos")
