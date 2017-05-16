@@ -10,7 +10,7 @@ ts <- unique(mlm$Trait)
 CF = 0.05 # 0.1
 
 out <- list()
-idx_cf <- c()
+idx_cf <- c() ## cutoff idx
 for(i in 1:length(ts)){
   sub <- subset(mlm, Trait %in% ts[i])
   sub <- subset(sub, Chr %in% 1:10)
@@ -23,6 +23,8 @@ for(i in 1:length(ts)){
   out[[ts[i]]] <- sub
   
   if(sum(sub$qval < CF, na.rm=T) > 0 ){
+    
+
     idx <- which.min( abs(sub$qval - CF))
     idx_cf <- c(idx_cf, idx)
   }else{
@@ -47,7 +49,12 @@ for(j in 1:length(out)){
   sub <- out[[t]]
   sub$log10p <- -log10(sub$p)
   if(idx_cf[j] > 0){
-    mycf <- sub$log10p[idx_cf[j]]
+    
+    sub1 <- subset(sub, qval > CF)
+    sub2 <- subset(sub, qval < CF)
+    
+    ## determine the value of the cutoff
+    mycf <- (min(sub2$log10p) + max(sub1$log10p))/2
   }
   
   
