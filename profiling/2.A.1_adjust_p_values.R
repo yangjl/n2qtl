@@ -2,7 +2,7 @@
 
 
 library("data.table")
-mlm <- fread("largedata/mlm_filter70.txt", data.table=FALSE)
+mlm <- fread("largedata/mlm_filter90.txt", data.table=FALSE)
 
 ts <- unique(mlm$Trait)
 
@@ -39,7 +39,7 @@ source("lib/newpos.R")
 
 # location: 129.186.85.7
 
-pdf("graphs/mht_plots_fdr0.05.pdf", width=10, height=4)
+pdf("graphs/mht_plots_filter90_fdr0.05.pdf", width=10, height=4)
 
 for(j in 1:length(out)){
   t <- names(out)[j]
